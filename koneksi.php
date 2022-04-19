@@ -1,8 +1,6 @@
 <?php
-$connect = new mysqli("localhost","root","","wilayah");
-// Memeriksa Koneksi
-if ($connect -> connect_errno) {
-  echo "Koneksi Gagal!: " . $connect -> connect_error;
-  exit();
+
+$con = mysqli_connect('localhost', 'root', '', 'wilayah') or die(mysqli_error($con));
+if (!$con) {
+    echo "Koneksi Gagal!";
 }
-?>
