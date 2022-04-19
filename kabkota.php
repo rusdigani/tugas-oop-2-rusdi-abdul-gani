@@ -1,13 +1,15 @@
 <?php
+include "koneksi.php";
 
-include 'koneksi.php';
+$id = $_POST['id'];
+$modul = $_POST['modul'];
 
-$pro_id = $_POST['kode_provinsi'];
+if ($modul == 'Kabupaten') {
+    $sql = mysqli_query($con, "SELECT * FROM tbl_kabkota where kode_provinsi='$id' order by kode_provinsi ASC") or die(mysqli_error($con));
+    $kabupaten = '<option>---Pilih kabkota---</option>';
+    while ($dt = mysqli_fetch_array($sql)) {
+        $kabupaten .= '<option value="' . $dt['kode_provinsi'] . '">' . $dt['nama_kabkota'] . '</option>';
+    }
 
-$sql_kabkota = mysqli_query($connect, "select * from tbl_kabkota WHERE kode_provinsi ='$pro_id' order by nama_kabkota");
-
-echo '<option>Pilih Kabupaten/Kota</option>';
-while($row_kabkota = mysqli_fetch_array($sql_kabkota)) {
-    echo '<option value="'.$row_kabkota['id_kabkota'].'">'.$row_kabkota['nama_kabkota'].'</option>\n';
+    echo $kabupaten;
 }
-?> 
